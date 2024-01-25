@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% for nav in navigation %}
+        <title>{{ nav.heading }}</title>
+        <link rel="stylesheet" href="{% static "css/styles.css" %}">
+        </head>
+        <body>
+        <header>
+            <div class="name">
+                <p style="margin-top: 50px">{{ nav.heading }}</p>
+                <img class="logo" src="{{ nav.file_binary.url }}">
+            </div>
+        </header>
+        <main>
+        <div class="body">
+        <div style="height: 1000px" class="navigation">
+            <nav>
+                <ul>
+                    <li>
+                        <div><a href="/">{{ nav.menu_item_1 }}</a></div>
+                    </li>
+                    <li>
+                        <div><a href={% url 'relevance' %}>{{ nav.menu_item_2 }}</a></div>
+                    </li>
+                    <li>
+                        <div><a href={% url 'location' %}>{{ nav.menu_item_3 }}</a></div>
+                    </li>
+                    <li>
+                        <div class="active-div"><a style="margin-left: 0"
+                                                   href={% url 'job_abilities' %}>{{ nav.menu_item_4 }}</a></div>
+                    </li>
+                    <li>
+                        <div><a href={% url 'recent_jobs' %}>{{ nav.menu_item_5 }}</a></div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    {% endfor %}
+    <div class="home_text" style="top: 200px">
+        {% for data in job_abilities_results %}
+            <h1>{{ data.table_identifier }}</h1>
+            <div class="tables_skills">
+                {{ data.text_content|safe }}
+            </div>
+            <img class="skills_graph" src={{ data.skills_graphic.url }}/>
+            <div class="empty_skills"></div>
+        {% endfor %}
+    </div>
+    </div>
+    </main>
+    {% for nav in navigation %}
+        <footer>
+            <p style="margin-left: 20px">{{ nav.author_name }}</p>
+        </footer>
+    {% endfor %}
+
+    </body>
+</html>

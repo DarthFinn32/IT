@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% for nav in navigation %}
+        <title>{{ nav.heading }}</title>
+        <link rel="stylesheet" href="{% static "css/styles.css" %}">
+        </head>
+        <body>
+        <header>
+            <div class="name">
+                <p style="margin-top: 50px">{{ nav.heading }}</p>
+                <img class="logo" src="{{ nav.file_binary.url }}">
+            </div>
+        </header>
+        <main>
+        <div class="body">
+        <div style="height: 3100px" class="navigation">
+            <nav>
+                <ul>
+                    <li>
+                        <div><a href="/">{{ nav.menu_item_1 }}</a></div>
+                    </li>
+                    <li>
+                        <div><a href={% url 'relevance' %}>{{ nav.menu_item_2 }}</a></div>
+                    </li>
+                    <li>
+                        <div><a href={% url 'location' %}>{{ nav.menu_item_3 }}</a></div>
+                    </li>
+                    <li>
+                        <div><a href={% url 'job_abilities' %}>{{ nav.menu_item_4 }}</a></div>
+                    </li>
+                    <li>
+                        <div class="active-div"><a style="margin-left: 0"
+                                                   href={% url 'recent_jobs' %}>{{ nav.menu_item_5 }}</a></div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    {% endfor %}
+    <div class="home_text" style="margin-left: 50px;">
+        {% for data in last_vacancies %}
+            <h1>{{ data.title }}</h1>
+            <div class="empty_skills"></div>
+        {% endfor %}
+    </div>
+    <div class="LVtable" style="margin-left: 100px">
+        {% for i in vacs %}
+            <h3>{{ i.name }}</h3>
+            <p>Описание: {{ i.description }}</p>
+            <p>Навыки: {{ i.key_skills }}</p>
+            <p>Компания: {{ i.employer }}</p>
+            <p>Зарплата: {{ i.salary }}</p>
+            <p>Город: {{ i.area }}</p>
+            <p>Дата публикации: {{ i.published_at }}</p>
+            <p>Ссылка: {{ i.alternate_url }}</p>
+        {% endfor %}
+    </div>
+    </div>
+    </main>
+    {% for nav in navigation %}
+        <footer>
+            <p style="margin-left: 20px">{{ nav.author_name }}</p>
+        </footer>
+    {% endfor %}
+
+    </body>
+</html>
